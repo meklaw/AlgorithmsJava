@@ -1,8 +1,4 @@
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Queue;
-import java.util.stream.Collectors;
+import java.util.*;
 
 public class SimpleTreeNode<T> {
     public T NodeValue; // значение в узле
@@ -57,9 +53,11 @@ class SimpleTree<T> {
 
     public List<SimpleTreeNode<T>> FindNodesByValue(T val) {
         // ваш код поиска узлов по значению
-        return GetAllNodes().stream()
+        List<SimpleTreeNode<T>> allNodes = new ArrayList<>();
+        GetAllNodes().stream()
                 .filter(node -> node.NodeValue == val)
-                .collect(Collectors.toList());
+                .forEach(allNodes::add);
+        return allNodes;
     }
 
     public void MoveNode(SimpleTreeNode<T> OriginalNode, SimpleTreeNode<T> NewParent) {
