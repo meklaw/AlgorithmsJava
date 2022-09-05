@@ -101,6 +101,13 @@ class SimpleTreeTest {
     @Test
     void leafCount() {
         assertEquals(4, tree.LeafCount());
+        tree.DeleteNode(value25);
+        assertEquals(3, tree.LeafCount());
+        tree.DeleteNode(value20);
+        assertEquals(1, tree.LeafCount());
+        tree.DeleteNode(value7);
+        assertEquals(1, tree.LeafCount());
+
         assertEquals(0, new SimpleTree<>(null).LeafCount());
     }
 }

@@ -75,7 +75,7 @@ class SimpleTree<T> {
     public int LeafCount() {
         // количество листьев в дереве
         return (int) GetAllNodes().stream()
-                .filter(node -> node.Children == null)
+                .filter(node -> node.Children == null || node.Children.size() == 0)
                 .count();
     }
 }
