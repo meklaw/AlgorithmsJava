@@ -63,20 +63,8 @@ class SimpleTree<T> {
     public void MoveNode(SimpleTreeNode<T> OriginalNode, SimpleTreeNode<T> NewParent) {
         // ваш код перемещения узла вместе с его поддеревом --
         // в качестве дочернего для узла NewParent
-        NewParent.Parent = OriginalNode.Parent;
-
-        if (NewParent.Children == null)
-            NewParent.Children = new ArrayList<>();
-        NewParent.Children.add(OriginalNode);
-
-        OriginalNode.Parent = NewParent;
-
-        if (Root == OriginalNode) {
-            Root = NewParent;
-            return;
-        }
-        NewParent.Parent.Children.remove(OriginalNode);
-        NewParent.Parent.Children.add(NewParent);
+        DeleteNode(OriginalNode);
+        AddChild(NewParent, OriginalNode);
     }
 
     public int Count() {
