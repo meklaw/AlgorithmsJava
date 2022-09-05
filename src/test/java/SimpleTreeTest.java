@@ -86,18 +86,9 @@ class SimpleTreeTest {
     void moveNode() {
         SimpleTreeNode<Integer> newParent =  new SimpleTreeNode<>(111, null);
         tree.MoveNode(value20, newParent);
-        assertFalse(value10.Children.contains(value20));
-        assertTrue(value10.Children.contains(newParent));
-        assertEquals(value10.Children.size(), 2);
-        assertEquals(value20.Parent, newParent);
-
-
-        SimpleTreeNode<Integer> newParent2 =  new SimpleTreeNode<>(200, null);
-        tree.MoveNode(value10, newParent2);
-        assertEquals(tree.Root, newParent2);
-        assertTrue(newParent2.Children.contains(value10));
-        assertEquals(value10.Parent, newParent2);
-
+        assertEquals(tree.GetAllNodes().size(), 2);
+        assertEquals(tree.Root.NodeValue, 10);
+        assertEquals(tree.Root.Children.get(0).NodeValue, 7);
     }
 
     @Test
