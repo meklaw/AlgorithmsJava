@@ -157,14 +157,14 @@ class BSTTest {
         for (int i : init) {
             stringBST.AddKeyValue(i, "");
         }
-        stringBST.deleteHeadNode(stringBST.Root, stringBST.Root.RightChild.LeftChild.LeftChild);
+        stringBST.deleteNodeAndReplace(stringBST.Root, stringBST.Root.RightChild.LeftChild.LeftChild);
         assertEquals(stringBST.Root.NodeKey, 9);
         assertEquals(stringBST.Root.Parent, null);
         assertEquals(stringBST.Root.LeftChild.NodeKey, 4);
         assertEquals(stringBST.Root.RightChild.NodeKey, 12);
         assertEquals(stringBST.Root.RightChild.LeftChild.LeftChild, null);
 
-        stringBST.deleteHeadNode(stringBST.Root, stringBST.Root.RightChild.LeftChild);
+        stringBST.deleteNodeAndReplace(stringBST.Root, stringBST.Root.RightChild.LeftChild);
         assertEquals(stringBST.Root.NodeKey, 10);
         assertEquals(stringBST.Root.Parent, null);
         assertEquals(stringBST.Root.LeftChild.NodeKey, 4);
@@ -174,13 +174,13 @@ class BSTTest {
         assertEquals(stringBST.Root.RightChild.LeftChild.RightChild, null);
         assertEquals(stringBST.Root.RightChild.LeftChild.Parent.NodeKey, 12);
 
-        stringBST.deleteHeadNode(stringBST.Root, stringBST.Root.RightChild.LeftChild);
+        stringBST.deleteNodeAndReplace(stringBST.Root, stringBST.Root.RightChild.LeftChild);
         assertEquals(stringBST.Root.NodeKey, 11);
         assertEquals(stringBST.Root.RightChild.NodeKey, 12);
         assertEquals(stringBST.Root.RightChild.LeftChild, null);
         assertEquals(stringBST.Root.RightChild.RightChild.NodeKey, 14);
 
-        stringBST.deleteHeadNode(stringBST.Root, stringBST.Root.RightChild);
+        stringBST.deleteNodeAndReplace(stringBST.Root, stringBST.Root.RightChild);
         assertEquals(stringBST.Root.NodeKey, 12);
         assertEquals(stringBST.Root.Parent, null);
         assertEquals(stringBST.Root.LeftChild.NodeKey, 4);
@@ -197,7 +197,7 @@ class BSTTest {
             stringBST.AddKeyValue(i, "");
         }
 
-        stringBST.deleteHeadNode(stringBST.Root, stringBST.Root.LeftChild);
+        stringBST.deleteNodeAndReplace(stringBST.Root, stringBST.Root.LeftChild);
         assertEquals(stringBST.Root.NodeKey, 4);
         assertEquals(stringBST.Root.LeftChild.NodeKey, 2);
         assertEquals(stringBST.Root.RightChild.NodeKey, 6);

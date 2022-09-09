@@ -131,21 +131,22 @@ class BST<T> {
 
         BSTNode<T> heirNode = findHairNode(nodeToDelete);
 
-        boolean isHeadToDelete = nodeToDelete == Root;
-        if (isHeadToDelete) {
-            deleteHeadNode(nodeToDelete, heirNode);
-            return true;
-        }
-        deleteNode(nodeToDelete, heirNode);
+        deleteNodeAndReplace(nodeToDelete, heirNode);
 
         return true;
 
     }
 
-    public void deleteHeadNode(BSTNode<T> nodeToDelete, BSTNode<T> heirNode) {
+    public void deleteNodeAndReplace(BSTNode<T> nodeToDelete, BSTNode<T> heirNode) {
         BSTNode<T> parentHeirNode = heirNode.Parent;
-        heirNode.Parent = null;
-        Root = heirNode;
+        boolean isHeadToDelete = nodeToDelete == Root;
+        if (isHeadToDelete) {
+            heirNode.Parent = null;
+            Root = heirNode;
+        } else {
+            heirNode.Parent = nodeToDelete.Parent;
+        }
+
         if (heirNode == nodeToDelete.LeftChild) {
             return;
         }
@@ -161,10 +162,6 @@ class BST<T> {
         }
         heirNode.RightChild = nodeToDelete.RightChild;
         heirNode.RightChild.Parent = heirNode;
-    }
-
-    public void deleteNode(BSTNode<T> nodeToDelete, BSTNode<T> heirNode) {
-
     }
 
     public BSTNode<T> findHairNode(BSTNode<T> nodeToDelete) {
