@@ -1,6 +1,4 @@
 import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Queue;
 
 class BSTNode<T> {
@@ -124,13 +122,10 @@ class BST<T> {
         if (!findToDelete.NodeHasKey)
             return false; // если узел не найден
         BSTNode<T> nodeToDelete = findToDelete.Node;
-        boolean leftChildNull = nodeToDelete.LeftChild == null;
-        boolean rightChildNull = nodeToDelete.RightChild == null;
-        boolean isNodeHead = Root == nodeToDelete;
 
-        if (deleteLeaf(nodeToDelete, leftChildNull, rightChildNull, isNodeHead)) return true;
+        if (deleteIfLeaf(nodeToDelete)) return true;
 
-        if (deleteIfOneLeftChild(nodeToDelete, leftChildNull, rightChildNull, isNodeHead)) return true;
+        if (deleteIfNoRightChild(nodeToDelete)) return true;
 
         BSTNode<T> heirNode = findHairNode(nodeToDelete);
         BSTNode<T> heirParent = heirNode.Parent;
@@ -139,11 +134,11 @@ class BST<T> {
         heirNode.LeftChild = nodeToDelete.LeftChild;
         if (nodeToDelete.RightChild != heirNode && nodeToDelete.RightChild != heirRightChild )
             heirNode.RightChild = nodeToDelete.RightChild;
-        if (isNodeHead) {
+        if (Root == nodeToDelete) {
             heirNode.Parent = null;
             Root = heirNode;
         }
-        if (!isNodeHead) {
+        if (Root != nodeToDelete) {
             heirNode.Parent = nodeToDelete.Parent;
         }
 
@@ -174,7 +169,10 @@ class BST<T> {
         }
     }
 
-    private boolean deleteIfOneLeftChild(BSTNode<T> nodeToDelete, boolean leftChildNull, boolean rightChildNull, boolean isNodeHead) {
+    public boolean deleteIfNoRightChild(BSTNode<T> nodeToDelete) {
+        boolean leftChildNull = nodeToDelete.LeftChild == null;
+        boolean rightChildNull = nodeToDelete.RightChild == null;
+        boolean isNodeHead = Root == nodeToDelete;
         if (!leftChildNull && rightChildNull && isNodeHead) {
             Root = Root.LeftChild;
             return true;
@@ -195,7 +193,11 @@ class BST<T> {
         return false;
     }
 
-    private boolean deleteLeaf(BSTNode<T> nodeToDelete, boolean leftChildNull, boolean rightChildNull, boolean isNodeHead) {
+    public boolean deleteIfLeaf(BSTNode<T> nodeToDelete) {
+        boolean leftChildNull = nodeToDelete.LeftChild == null;
+        boolean rightChildNull = nodeToDelete.RightChild == null;
+        boolean isNodeHead = Root == nodeToDelete;
+
         if (leftChildNull && rightChildNull && isNodeHead) {
             Root = null;
             return true;

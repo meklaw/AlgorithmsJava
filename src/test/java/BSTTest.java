@@ -123,6 +123,57 @@ class BSTTest {
     }
 
     @Test
+    void deleteLeaf() {
+        BST<String> stringBST = new BST<>(null);
+        stringBST.Root = new BSTNode<>(8, "", null);
+        int[] init = new int[]{4, 12, 10, 9, 11, 14, 13, 15};
+        for (int i : init) {
+            stringBST.AddKeyValue(i, "");
+        }
+        assertFalse(stringBST.deleteIfLeaf(stringBST.Root));
+        assertFalse(stringBST.deleteIfLeaf(stringBST.Root.RightChild.RightChild));
+        assertTrue(stringBST.deleteIfLeaf(stringBST.Root.RightChild.RightChild.RightChild));
+        assertFalse(stringBST.deleteIfLeaf(stringBST.Root.RightChild.RightChild));
+        assertEquals(stringBST.Root.RightChild.RightChild.RightChild, null);
+        assertTrue(stringBST.deleteIfLeaf(stringBST.Root.RightChild.RightChild.LeftChild));
+        assertEquals(stringBST.Root.RightChild.RightChild.LeftChild, null);
+        assertTrue(stringBST.deleteIfLeaf(stringBST.Root.RightChild.RightChild));
+        assertEquals(stringBST.Root.RightChild.RightChild, null);
+
+        assertEquals(stringBST.FindNodeByKey(14).Node.NodeKey, 12);
+        assertEquals(stringBST.FindNodeByKey(14).NodeHasKey, false);
+        assertEquals(stringBST.FindNodeByKey(13).Node.NodeKey, 12);
+        assertEquals(stringBST.FindNodeByKey(13).NodeHasKey, false);
+        assertEquals(stringBST.FindNodeByKey(15).Node.NodeKey, 12);
+        assertEquals(stringBST.FindNodeByKey(15).NodeHasKey, false);
+
+        stringBST.Root = new BSTNode<>(8, "", null);
+        assertTrue(stringBST.deleteIfLeaf(stringBST.Root));
+        assertEquals(stringBST.FindNodeByKey(8).Node, null);
+        assertEquals(stringBST.FindNodeByKey(8).NodeHasKey, false);
+
+    }
+//    @Test
+//    void deleteIfNoRightChild() {
+//        BST<String> stringBST = new BST<>(null);
+//        stringBST.Root = new BSTNode<>(8, "", null);
+//        int[] init = new int[]{4, 12, 10, 9, 11, 14, 13, 15};
+//        for (int i : init) {
+//            stringBST.AddKeyValue(i, "");
+//        }
+//        assertFalse(stringBST.deleteIfNoRightChild(stringBST.Root));
+//        assertFalse(stringBST.deleteIfNoRightChild(stringBST.Root.RightChild.LeftChild));
+//        assertEquals(stringBST.FindNodeByKey(8).NodeHasKey, true);
+//        assertEquals(stringBST.FindNodeByKey(10).NodeHasKey, true);
+//        assertFalse(stringBST.deleteIfNoRightChild(stringBST.Root.RightChild.LeftChild.LeftChild));
+//        assertEquals(stringBST.FindNodeByKey(9).NodeHasKey, true);
+//        stringBST.deleteIfLeaf(stringBST.Root.RightChild.LeftChild.RightChild); // убрал 9
+//        assertTrue(stringBST.deleteIfNoRightChild(stringBST.Root.RightChild.LeftChild));
+//
+//
+//    }
+
+    @Test
     void deleteNodeByKey() {
         BST<String> stringBST = new BST<>(new BSTNode<>(3, "fw", null));
         assertFalse(stringBST.DeleteNodeByKey(0));
@@ -204,7 +255,15 @@ class BSTTest {
         assertEquals(stringBST.Root.NodeKey, 4);
         assertEquals(stringBST.Root.LeftChild.NodeKey, 2);
         assertEquals(stringBST.Root.RightChild.NodeKey, 6);
-
+        assertEquals(stringBST.FindNodeByKey(4).NodeHasKey, true);
+        assertEquals(stringBST.FindNodeByKey(4).Node.NodeKey, 4);
+        assertEquals(stringBST.FindNodeByKey(2).NodeHasKey, true);
+        assertEquals(stringBST.FindNodeByKey(2).Node.NodeKey, 2);
+        assertEquals(stringBST.FindNodeByKey(6).NodeHasKey, true);
+        assertEquals(stringBST.FindNodeByKey(6).Node.NodeKey, 6);
+        assertEquals(stringBST.FindNodeByKey(8).NodeHasKey, false);
+        assertEquals(stringBST.FindNodeByKey(8).Node.NodeKey, 6);
+        assertEquals(stringBST.FindNodeByKey(8).ToLeft, false);
 
     }
 
