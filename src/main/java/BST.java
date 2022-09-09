@@ -143,7 +143,8 @@ class BST<T> {
         if (isHeadToDelete) {
             heirNode.Parent = null;
             Root = heirNode;
-        } else {
+        }
+        if (!isHeadToDelete) {
             heirNode.Parent = nodeToDelete.Parent;
         }
 
