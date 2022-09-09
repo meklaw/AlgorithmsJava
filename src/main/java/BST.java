@@ -1,5 +1,5 @@
-import java.util.ArrayDeque;
-import java.util.Queue;
+import java.io.*;
+import java.util.*;
 
 class BSTNode<T> {
     public int NodeKey; // ключ узла
