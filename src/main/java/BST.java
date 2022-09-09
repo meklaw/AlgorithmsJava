@@ -123,44 +123,58 @@ class BST<T> {
             return false; // если узел не найден
         BSTNode<T> nodeToDelete = findToDelete.Node;
 
-        if (deleteIfLeaf(nodeToDelete)) return true;
-
-        if (deleteIfNoRightChild(nodeToDelete)) return true;
+        boolean isLeaf = nodeToDelete.LeftChild == null && nodeToDelete.RightChild == null;
+        if (isLeaf) {
+            deleteLeaf(nodeToDelete);
+            return true;
+        }
 
         BSTNode<T> heirNode = findHairNode(nodeToDelete);
-        BSTNode<T> heirParent = heirNode.Parent;
-        BSTNode<T> heirRightChild = heirNode.RightChild;
 
-        heirNode.LeftChild = nodeToDelete.LeftChild;
-        if (nodeToDelete.RightChild != heirNode && nodeToDelete.RightChild != heirRightChild )
-            heirNode.RightChild = nodeToDelete.RightChild;
-        if (Root == nodeToDelete) {
-            heirNode.Parent = null;
-            Root = heirNode;
+        boolean isHeadToDelete = nodeToDelete == Root;
+        if (isHeadToDelete) {
+            deleteHeadNode(nodeToDelete, heirNode);
+            return true;
         }
-        if (Root != nodeToDelete) {
-            heirNode.Parent = nodeToDelete.Parent;
-        }
-
-        if (heirParent.LeftChild == heirNode) {
-            heirParent.LeftChild = null;
-        }
-
-        if (heirRightChild != null && nodeToDelete.RightChild != heirRightChild) {
-            heirParent.LeftChild = heirRightChild;
-        }
+        deleteNode(nodeToDelete, heirNode);
 
         return true;
 
     }
 
-    private BSTNode<T> findHairNode(BSTNode<T> nodeToDelete) {
+    public void deleteHeadNode(BSTNode<T> nodeToDelete, BSTNode<T> heirNode) {
+        BSTNode<T> parentHeirNode = heirNode.Parent;
+        heirNode.Parent = null;
+        Root = heirNode;
+        if (heirNode == nodeToDelete.LeftChild) {
+            return;
+        }
+        heirNode.LeftChild = nodeToDelete.LeftChild;
+        heirNode.LeftChild.Parent = heirNode;
+        if (heirNode == nodeToDelete.RightChild) {
+            return;
+        }
+        parentHeirNode.LeftChild = null;
+        if (heirNode.RightChild != null) {
+            parentHeirNode.LeftChild = heirNode.RightChild;
+            heirNode.RightChild.Parent = parentHeirNode;
+        }
+        heirNode.RightChild = nodeToDelete.RightChild;
+        heirNode.RightChild.Parent = heirNode;
+    }
+
+    public void deleteNode(BSTNode<T> nodeToDelete, BSTNode<T> heirNode) {
+
+    }
+
+    public BSTNode<T> findHairNode(BSTNode<T> nodeToDelete) {
         BSTNode<T> heirNode = nodeToDelete.RightChild;
+        if (heirNode == null) {
+            heirNode = nodeToDelete.LeftChild;
+            return heirNode;
+        }
+
         while (true) {
-            boolean isLeaf = heirNode.LeftChild == null && heirNode.RightChild == null;
-            if (isLeaf) {
-                return heirNode;
-            }
             if (heirNode.LeftChild == null) {
                 return heirNode;
             }
@@ -169,51 +183,21 @@ class BST<T> {
         }
     }
 
-    public boolean deleteIfNoRightChild(BSTNode<T> nodeToDelete) {
-        boolean leftChildNull = nodeToDelete.LeftChild == null;
-        boolean rightChildNull = nodeToDelete.RightChild == null;
-        boolean isNodeHead = Root == nodeToDelete;
-        if (!leftChildNull && rightChildNull && isNodeHead) {
-            Root = Root.LeftChild;
-            return true;
-        }
-        if (isNodeHead)
-            return false;
-        boolean isLeftChild = nodeToDelete.Parent.LeftChild == nodeToDelete;
-        if (!leftChildNull && rightChildNull && isLeftChild) {
-            nodeToDelete.Parent.LeftChild = nodeToDelete.LeftChild;
-            nodeToDelete.LeftChild.Parent = nodeToDelete.Parent;
-            return true;
-        }
-        if (!leftChildNull && rightChildNull) {
-            nodeToDelete.Parent.RightChild = nodeToDelete.LeftChild;
-            nodeToDelete.LeftChild.Parent = nodeToDelete.Parent;
-            return true;
-        }
-        return false;
-    }
-
-    public boolean deleteIfLeaf(BSTNode<T> nodeToDelete) {
-        boolean leftChildNull = nodeToDelete.LeftChild == null;
-        boolean rightChildNull = nodeToDelete.RightChild == null;
+    public void deleteLeaf(BSTNode<T> nodeToDelete) {
         boolean isNodeHead = Root == nodeToDelete;
 
-        if (leftChildNull && rightChildNull && isNodeHead) {
+        if (isNodeHead) {
             Root = null;
-            return true;
+            return;
         }
-        if (isNodeHead)
-            return false;
+
         boolean isLeftChild = nodeToDelete.Parent.LeftChild == nodeToDelete;
-        if (leftChildNull && rightChildNull && isLeftChild) {
+        if (isLeftChild) {
             nodeToDelete.Parent.LeftChild = null;
-            return true;
+            return;
         }
-        if (leftChildNull && rightChildNull ) {
-            nodeToDelete.Parent.RightChild = null;
-            return true;
-        }
-        return false;
+
+        nodeToDelete.Parent.RightChild = null;
     }
 
     public int Count() {
@@ -225,11 +209,11 @@ class BST<T> {
         BSTNode<T> nodeCheck = Root;
         while (nodeCheck != null) {
             if (nodeCheck.LeftChild != null) {
-                count ++;
+                count++;
                 nodesToCheck.add(nodeCheck.LeftChild);
             }
             if (nodeCheck.RightChild != null) {
-                count ++;
+                count++;
                 nodesToCheck.add(nodeCheck.RightChild);
             }
             nodeCheck = nodesToCheck.poll();
