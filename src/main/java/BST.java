@@ -161,79 +161,32 @@ class BST<T> {
     }
 
     public void deleteNodeAndReplace(BSTNode<T> nodeToDelete, BSTNode<T> heirNode) {
-        if (nodeToDelete == Root) {
+        boolean isRoot = nodeToDelete == Root;
+        if (isRoot) {
             Root = heirNode;
-
-            if (nodeToDelete.RightChild == heirNode) {
-                heirNode.Parent = nodeToDelete.Parent;
-                heirNode.LeftChild = nodeToDelete.LeftChild;
-                if (heirNode.LeftChild != null) {
-                    heirNode.LeftChild.Parent = heirNode;
-                }
-                return;
-
-
-            }
-            if (nodeToDelete.RightChild != heirNode) {
-                heirNode.Parent.LeftChild = heirNode.RightChild;
-                if (heirNode.RightChild != null) {
-                    heirNode.RightChild.Parent = heirNode.Parent;
-                }
-
-                heirNode.Parent = nodeToDelete.Parent;
-
-                heirNode.LeftChild = nodeToDelete.LeftChild;
-                if (heirNode.LeftChild != null) {
-                    heirNode.LeftChild.Parent = heirNode;
-                }
-                heirNode.RightChild = nodeToDelete.RightChild;
-                if (heirNode.RightChild != null) {
-                    heirNode.RightChild.Parent = heirNode;
-                }
-            }
-            return;
         }
-
-        //не бошка
+        if (!isRoot && nodeToDelete.Parent.RightChild == nodeToDelete) {
+            nodeToDelete.Parent.RightChild = heirNode;
+        }
+        if (!isRoot && nodeToDelete.Parent.LeftChild == nodeToDelete) {
+            nodeToDelete.Parent.LeftChild = heirNode;
+        }
+        heirNode.LeftChild = nodeToDelete.LeftChild;
+        if (heirNode.LeftChild != null) {
+            heirNode.LeftChild.Parent = heirNode;
+        }
+        heirNode.Parent.LeftChild = heirNode.RightChild;
+        if (heirNode.RightChild != null) {
+            heirNode.RightChild.Parent = heirNode.Parent;
+        }
+        heirNode.Parent = nodeToDelete.Parent;
 
         if (nodeToDelete.RightChild == heirNode) {
-            heirNode.Parent = nodeToDelete.Parent;
-            heirNode.LeftChild = nodeToDelete.LeftChild;
-            if (heirNode.LeftChild != null) {
-                heirNode.LeftChild.Parent = heirNode;
-            }
-            if (nodeToDelete.Parent.RightChild == nodeToDelete) {
-                nodeToDelete.Parent.RightChild = heirNode;
-            }
-            if (nodeToDelete.Parent.LeftChild == nodeToDelete) {
-                nodeToDelete.Parent.LeftChild = heirNode;
-            }
             return;
-
-
         }
-        if (nodeToDelete.RightChild != heirNode) {
-            heirNode.Parent.LeftChild = heirNode.RightChild;
-            if (heirNode.RightChild != null) {
-                heirNode.RightChild.Parent = heirNode.Parent;
-            }
-
-            heirNode.Parent = nodeToDelete.Parent;
-            if (nodeToDelete.Parent.RightChild == nodeToDelete) {
-                nodeToDelete.Parent.RightChild = heirNode;
-            }
-            if (nodeToDelete.Parent.LeftChild == nodeToDelete) {
-                nodeToDelete.Parent.LeftChild = heirNode;
-            }
-
-            heirNode.LeftChild = nodeToDelete.LeftChild;
-            if (heirNode.LeftChild != null) {
-                heirNode.LeftChild.Parent = heirNode;
-            }
-            heirNode.RightChild = nodeToDelete.RightChild;
-            if (heirNode.RightChild != null) {
-                heirNode.RightChild.Parent = heirNode;
-            }
+        heirNode.RightChild = nodeToDelete.RightChild;
+        if (heirNode.RightChild != null) {
+            heirNode.RightChild.Parent = heirNode;
         }
 
     }
