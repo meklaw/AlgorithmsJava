@@ -306,6 +306,10 @@ class BSTTest {
         assertEquals(stringBST.Root.LeftChild.NodeKey, 4);
         assertEquals(stringBST.Root.LeftChild.Parent.NodeKey, 15);
         assertEquals(stringBST.Root.RightChild, null);
+        assertEquals(stringBST.FindNodeByKey(16).Node.NodeKey, 15);
+        assertEquals(stringBST.FindNodeByKey(16).ToLeft, false);
+        assertEquals(stringBST.FindNodeByKey(16).NodeHasKey, false);
+
 
     }
 
