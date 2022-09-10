@@ -150,87 +150,88 @@ class BSTTest {
         assertEquals(stringBST.FindNodeByKey(8).NodeHasKey, false);
 
     }
+
     @Test
-    void deleteHeadNode() {
+    void deleteIfHasOneChild() {
         BST<String> stringBST = new BST<>(null);
-        int[] init = new int[]{8, 4, 12, 10, 14, 9, 11, 13, 15};
+        int[] init = new int[]{12, 14, 15};
         for (int i : init) {
             stringBST.AddKeyValue(i, "");
         }
-        stringBST.deleteNodeAndReplace(stringBST.Root, stringBST.Root.RightChild.LeftChild.LeftChild);
-        assertEquals(stringBST.Root.NodeKey, 9);
+        stringBST.deleteIfHasOneChild(stringBST.Root, stringBST.Root.RightChild);
+        assertEquals(stringBST.Root.NodeKey, 14);
+        assertEquals(stringBST.Root.RightChild.NodeKey, 15);
+        assertEquals(stringBST.Root.RightChild.Parent.NodeKey, 14);
         assertEquals(stringBST.Root.Parent, null);
-        assertEquals(stringBST.Root.LeftChild.NodeKey, 4);
-        assertEquals(stringBST.Root.RightChild.NodeKey, 12);
-        assertEquals(stringBST.Root.RightChild.LeftChild.LeftChild, null);
 
-        stringBST.deleteNodeAndReplace(stringBST.Root, stringBST.Root.RightChild.LeftChild);
-        assertEquals(stringBST.Root.NodeKey, 10);
-        assertEquals(stringBST.Root.Parent, null);
-        assertEquals(stringBST.Root.LeftChild.NodeKey, 4);
-        assertEquals(stringBST.Root.RightChild.NodeKey, 12);
-        assertEquals(stringBST.Root.RightChild.LeftChild.NodeKey, 11);
-        assertEquals(stringBST.Root.RightChild.LeftChild.LeftChild, null);
-        assertEquals(stringBST.Root.RightChild.LeftChild.RightChild, null);
-        assertEquals(stringBST.Root.RightChild.LeftChild.Parent.NodeKey, 12);
-
-        stringBST.deleteNodeAndReplace(stringBST.Root, stringBST.Root.RightChild.LeftChild);
-        assertEquals(stringBST.Root.NodeKey, 11);
-        assertEquals(stringBST.Root.RightChild.NodeKey, 12);
-        assertEquals(stringBST.Root.RightChild.LeftChild, null);
-        assertEquals(stringBST.Root.RightChild.RightChild.NodeKey, 14);
-
-        stringBST.deleteNodeAndReplace(stringBST.Root, stringBST.Root.RightChild);
-        assertEquals(stringBST.Root.NodeKey, 12);
-        assertEquals(stringBST.Root.Parent, null);
-        assertEquals(stringBST.Root.LeftChild.NodeKey, 4);
-        assertEquals(stringBST.Root.RightChild.NodeKey, 14);
-        assertEquals(stringBST.Root.RightChild.LeftChild.NodeKey, 13);
-        assertEquals(stringBST.Root.RightChild.RightChild.NodeKey, 15);
-        assertEquals(stringBST.Root.RightChild.LeftChild.Parent, stringBST.Root.RightChild);
-        assertEquals(stringBST.Root.RightChild.RightChild.Parent, stringBST.Root.RightChild);
-        assertEquals(stringBST.Root.RightChild.Parent, stringBST.Root);
 
         stringBST = new BST<>(null);
-        init = new int[]{8, 4, 2, 6};
+        init = new int[]{10, 14, 16, 17};
         for (int i : init) {
             stringBST.AddKeyValue(i, "");
         }
+        stringBST.deleteIfHasOneChild(stringBST.Root.RightChild, stringBST.Root.RightChild.RightChild);
+        assertEquals(stringBST.Root.NodeKey, 10);
+        assertEquals(stringBST.Root.RightChild.NodeKey, 16);
+        assertEquals(stringBST.Root.RightChild.RightChild.NodeKey, 17);
+        assertEquals(stringBST.Root.RightChild.RightChild.Parent.NodeKey, 16);
+        assertEquals(stringBST.Root.RightChild.Parent.NodeKey, 10);
+        assertEquals(stringBST.Root.Parent, null);
 
-        stringBST.deleteNodeAndReplace(stringBST.Root, stringBST.Root.LeftChild);
-        assertEquals(stringBST.Root.NodeKey, 4);
-        assertEquals(stringBST.Root.LeftChild.NodeKey, 2);
-        assertEquals(stringBST.Root.RightChild.NodeKey, 6);
-        assertEquals(stringBST.Root.RightChild.Parent, stringBST.Root);
-        assertEquals(stringBST.Root.LeftChild.Parent, stringBST.Root);
+        stringBST = new BST<>(null);
+        init = new int[]{20, 14, 16, 17};
+        for (int i : init) {
+            stringBST.AddKeyValue(i, "");
+        }
+        stringBST.deleteIfHasOneChild(stringBST.Root.LeftChild, stringBST.Root.LeftChild.RightChild);
+        assertEquals(stringBST.Root.NodeKey, 20);
+        assertEquals(stringBST.Root.LeftChild.NodeKey, 16);
+        assertEquals(stringBST.Root.LeftChild.RightChild.NodeKey, 17);
+        assertEquals(stringBST.Root.LeftChild.RightChild.Parent.NodeKey, 16);
+        assertEquals(stringBST.Root.LeftChild.Parent.NodeKey, 20);
+        assertEquals(stringBST.Root.Parent, null);
+
+
+        stringBST = new BST<>(null);
+        init = new int[]{12, 8, 6, 4};
+        for (int i : init) {
+            stringBST.AddKeyValue(i, "");
+        }
+        stringBST.deleteIfHasOneChild(stringBST.Root, stringBST.Root.LeftChild);
+        assertEquals(stringBST.Root.NodeKey, 8);
+        assertEquals(stringBST.Root.LeftChild.NodeKey, 6);
+        assertEquals(stringBST.Root.LeftChild.LeftChild.NodeKey, 4);
+        assertEquals(stringBST.Root.LeftChild.LeftChild.Parent.NodeKey, 6);
+        assertEquals(stringBST.Root.LeftChild.Parent.NodeKey, 8);
+        assertEquals(stringBST.Root.Parent, null);
 
     }
+
 
     @Test
     void findHairNode() {
         BST<String> stringBST = new BST<>(null);
-        stringBST.Root = new BSTNode<>(8, "", null);
-        int[] init = new int[]{4, 12, 10, 9, 11, 14, 13, 15};
+        int[] init = new int[]{8, 4, 12, 10, 9, 11, 14, 13, 15};
         for (int i : init) {
             stringBST.AddKeyValue(i, "");
         }
         assertEquals(stringBST.findHairNode(stringBST.Root).NodeKey, 9);
 
-        stringBST.Root = null;
+        stringBST = new BST<>(null);
         init = new int[]{9, 4, 12, 10, 11, 14, 13, 15};
         for (int i : init) {
             stringBST.AddKeyValue(i, "");
         }
         assertEquals(stringBST.findHairNode(stringBST.Root).NodeKey, 10);
 
-        stringBST.Root = null;
+        stringBST = new BST<>(null);
         init = new int[]{10, 4, 12, 11, 14, 13, 15};
         for (int i : init) {
             stringBST.AddKeyValue(i, "");
         }
         assertEquals(stringBST.findHairNode(stringBST.Root).NodeKey, 11);
 
-        stringBST.Root = null;
+        stringBST = new BST<>(null);
         init = new int[]{11, 4, 12, 14, 13, 15};
         for (int i : init) {
             stringBST.AddKeyValue(i, "");
@@ -240,95 +241,71 @@ class BSTTest {
 
     @Test
     void deleteNodeByKey() {
-        BST<String> stringBST = new BST<>(new BSTNode<>(3, "fw", null));
-        assertFalse(stringBST.DeleteNodeByKey(0));
-        assertTrue(stringBST.DeleteNodeByKey(3));
-        assertEquals(stringBST.Root, null);
-
-        stringBST.Root = new BSTNode<>(8, "", null);
-        stringBST.AddKeyValue(4, "");
-        assertTrue(stringBST.DeleteNodeByKey(8));
-        assertEquals(stringBST.Root.NodeKey, 4);
-        assertEquals(stringBST.Root.LeftChild, null);
-        assertEquals(stringBST.Root.RightChild, null);
-
-
-        stringBST.Root = new BSTNode<>(8, "", null);
-        int[] init = new int[]{4, 12};
+        BST<String> stringBST = new BST<>(null);
+        int[] init = new int[]{8, 4, 12, 10, 9, 11, 14, 13, 15};
         for (int i : init) {
             stringBST.AddKeyValue(i, "");
         }
-        assertTrue(stringBST.DeleteNodeByKey(8));
-        assertEquals(stringBST.Root.NodeKey, 12);
-        assertEquals(stringBST.Root.LeftChild.NodeKey, 4);
-        assertEquals(stringBST.Root.RightChild, null);
+        assertTrue(stringBST.DeleteNodeByKey(15));
+        assertEquals(stringBST.FindNodeByKey(14).Node.RightChild, null);
+        assertTrue(stringBST.DeleteNodeByKey(14));
+        assertEquals(stringBST.FindNodeByKey(13).Node.RightChild, null);
+        assertEquals(stringBST.FindNodeByKey(13).Node.LeftChild, null);
+        assertEquals(stringBST.FindNodeByKey(13).Node.Parent.NodeKey, 12);
 
-        // ДОЛЖНА 9 ВСТАВИТЬСЯ
-        stringBST.Root = new BSTNode<>(8, "", null);
-        init = new int[]{4, 12, 10, 9, 11, 14, 13, 15};
+
+        stringBST = new BST<>(null);
+        init = new int[]{8, 4, 12, 10, 9, 11, 14, 13, 15};
         for (int i : init) {
             stringBST.AddKeyValue(i, "");
         }
+        assertTrue(stringBST.DeleteNodeByKey(12));
+        assertEquals(stringBST.FindNodeByKey(13).Node.RightChild.NodeKey, 14);
+        assertEquals(stringBST.FindNodeByKey(13).Node.RightChild.LeftChild, null);
+        assertEquals(stringBST.FindNodeByKey(13).Node.RightChild.RightChild.NodeKey, 15);
+        assertEquals(stringBST.FindNodeByKey(13).Node.RightChild.Parent.NodeKey, 13);
+        assertEquals(stringBST.FindNodeByKey(13).Node.LeftChild.NodeKey, 10);
+        assertEquals(stringBST.FindNodeByKey(13).Node.LeftChild.Parent.NodeKey, 13);
+        assertEquals(stringBST.FindNodeByKey(13).Node.Parent.NodeKey, 8);
+
+        assertTrue(stringBST.DeleteNodeByKey(13));
+        assertEquals(stringBST.FindNodeByKey(14).Node.RightChild.NodeKey, 15);
+        assertEquals(stringBST.FindNodeByKey(14).Node.LeftChild.NodeKey, 10);
+        assertEquals(stringBST.FindNodeByKey(14).Node.Parent.NodeKey, 8);
 
         assertTrue(stringBST.DeleteNodeByKey(8));
         assertEquals(stringBST.Root.NodeKey, 9);
-        assertEquals(stringBST.Root.LeftChild.NodeKey, 4);
-        assertEquals(stringBST.Root.RightChild.NodeKey, 12);
-        assertEquals(stringBST.Root.RightChild.RightChild.NodeKey, 14);
-        assertEquals(stringBST.Root.RightChild.LeftChild.NodeKey, 10);
-        assertEquals(stringBST.Root.RightChild.LeftChild.LeftChild, null);
-        assertEquals(stringBST.Root.RightChild.LeftChild.RightChild.NodeKey, 11);
-
-
-        // ДОЛЖНА 10 ВСТАВИТЬСЯ, 10-12-11
-        stringBST.Root = new BSTNode<>(8, "", null);
-        init = new int[]{4, 12, 10, 11, 14, 13, 15};
-        for (int i : init) {
-            stringBST.AddKeyValue(i, "");
-        }
-
-        assertTrue(stringBST.DeleteNodeByKey(8));
-        assertTrue(stringBST.DeleteNodeByKey(15));
-        assertEquals(stringBST.Root.NodeKey, 10);
-        assertEquals(stringBST.Root.LeftChild.NodeKey, 4);
-        assertEquals(stringBST.Root.RightChild.NodeKey, 12);
-        assertEquals(stringBST.Root.RightChild.RightChild.NodeKey, 14);
-        assertEquals(stringBST.Root.RightChild.RightChild.RightChild, null);
-        assertEquals(stringBST.Root.RightChild.RightChild.LeftChild.NodeKey, 13);
-        assertEquals(stringBST.Root.RightChild.LeftChild.NodeKey, 11);
-        assertEquals(stringBST.Root.RightChild.LeftChild.LeftChild, null);
-        assertEquals(stringBST.Root.RightChild.LeftChild.RightChild, null);
-
-
-        stringBST.Root = new BSTNode<>(8, "", null);
-        init = new int[]{4, 12, 14, 13, 15};
-        for (int i : init) {
-            stringBST.AddKeyValue(i, "");
-        }
-
-        assertTrue(stringBST.DeleteNodeByKey(8));
-        assertEquals(stringBST.Root.NodeKey, 12);
         assertEquals(stringBST.Root.RightChild.NodeKey, 14);
+        assertEquals(stringBST.Root.RightChild.LeftChild.NodeKey, 10);
+        assertEquals(stringBST.Root.RightChild.RightChild.NodeKey, 15);
+        assertEquals(stringBST.Root.RightChild.LeftChild.RightChild.NodeKey, 11);
+        assertEquals(stringBST.Root.RightChild.LeftChild.LeftChild, null);
+        assertEquals(stringBST.Root.RightChild.LeftChild.RightChild.Parent.NodeKey, 10);
+        assertEquals(stringBST.Root.RightChild.LeftChild.Parent.NodeKey, 14);
+        assertEquals(stringBST.Root.RightChild.Parent.NodeKey, 9);
 
-        stringBST.Root = new BSTNode<>(8, "", null);
-        init = new int[]{4, 2, 6};
-        for (int i : init) {
-            stringBST.AddKeyValue(i, "");
-        }
+        assertTrue(stringBST.DeleteNodeByKey(9));
+        assertEquals(stringBST.Root.NodeKey, 10);
+        assertEquals(stringBST.Root.RightChild.NodeKey, 14);
+        assertEquals(stringBST.Root.RightChild.LeftChild.NodeKey, 11);
+        assertEquals(stringBST.Root.RightChild.LeftChild.Parent.NodeKey, 14);
+        assertEquals(stringBST.Root.RightChild.Parent.NodeKey, 10);
+        assertEquals(stringBST.Root.Parent, null);
 
-        assertTrue(stringBST.DeleteNodeByKey(8));
-        assertEquals(stringBST.Root.NodeKey, 4);
-        assertEquals(stringBST.Root.LeftChild.NodeKey, 2);
-        assertEquals(stringBST.Root.RightChild.NodeKey, 6);
-        assertEquals(stringBST.FindNodeByKey(4).NodeHasKey, true);
-        assertEquals(stringBST.FindNodeByKey(4).Node.NodeKey, 4);
-        assertEquals(stringBST.FindNodeByKey(2).NodeHasKey, true);
-        assertEquals(stringBST.FindNodeByKey(2).Node.NodeKey, 2);
-        assertEquals(stringBST.FindNodeByKey(6).NodeHasKey, true);
-        assertEquals(stringBST.FindNodeByKey(6).Node.NodeKey, 6);
-        assertEquals(stringBST.FindNodeByKey(8).NodeHasKey, false);
-        assertEquals(stringBST.FindNodeByKey(8).Node.NodeKey, 6);
-        assertEquals(stringBST.FindNodeByKey(8).ToLeft, false);
+        assertTrue(stringBST.DeleteNodeByKey(11));
+        assertTrue(stringBST.DeleteNodeByKey(10));
+        assertEquals(stringBST.Root.NodeKey, 14);
+        assertEquals(stringBST.Root.LeftChild.NodeKey, 4);
+        assertEquals(stringBST.Root.RightChild.NodeKey, 15);
+        assertEquals(stringBST.Root.RightChild.LeftChild, null);
+        assertEquals(stringBST.Root.RightChild.RightChild, null);
+
+        assertTrue(stringBST.DeleteNodeByKey(14));
+
+        assertEquals(stringBST.Root.NodeKey, 15);
+        assertEquals(stringBST.Root.LeftChild.NodeKey, 4);
+        assertEquals(stringBST.Root.LeftChild.Parent.NodeKey, 15);
+        assertEquals(stringBST.Root.RightChild, null);
 
     }
 
