@@ -347,6 +347,30 @@ class BSTTest {
         for (int i = 0; i < init.length; i++) {
             assertEquals(bstNodes.get(i).NodeKey, init[i]);
         }
+    }
 
+    @Test
+    void DeepAllNodes() {
+        BST<String> bst = new BST<>(null);
+        int[] init = new int[]{8, 4, 12, 2, 6, 10, 14, 1, 3, 5, 7, 9, 11, 13, 15};
+        for (int i : init) {
+            bst.AddKeyValue(i, "");
+        }
+        ArrayList<BSTNode> bstNodes = bst.DeepAllNodes(0);
+        for (int i = 1; i <= 15; i++) {
+            assertEquals(bstNodes.get(i - 1).NodeKey, i);
+        }
+
+        bstNodes = bst.DeepAllNodes(1);
+        int[] tests = new int[]{1, 3, 2, 5, 7, 6, 4, 9, 11, 10, 13, 15, 14, 12, 8};
+        for (int i = 0; i < tests.length; i++) {
+            assertEquals(bstNodes.get(i).NodeKey, tests[i]);
+        }
+
+        bstNodes = bst.DeepAllNodes(2);
+        tests = new int[]{8, 4, 2, 1, 3, 6, 5, 7, 12, 10, 9, 11, 14, 13, 15};
+        for (int i = 0; i < tests.length; i++) {
+            assertEquals(bstNodes.get(i).NodeKey, tests[i]);
+        }
     }
 }

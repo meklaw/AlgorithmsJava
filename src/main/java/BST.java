@@ -1,6 +1,5 @@
 import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Queue;
 
 class BSTNode<T> {
@@ -260,4 +259,49 @@ class BST<T> {
         return allNodes;
     }
 
+    //    0 (in-order), 1 (post-order) и 2 (pre-order)
+    public ArrayList<BSTNode> DeepAllNodes(int i) {
+        ArrayList<BSTNode> allNodes = new ArrayList<>();
+        if (Root == null)
+            return allNodes;
+        if (i == 0)
+            return inOrderDeep(Root, allNodes);
+        if (i == 1)
+            return postOrderDeep(Root, allNodes);
+        return preOrderDeep(Root, allNodes);
+    }
+
+    private ArrayList<BSTNode> inOrderDeep(BSTNode checkNode, ArrayList<BSTNode> allNodes) {
+        if (checkNode.LeftChild != null)
+            inOrderDeep(checkNode.LeftChild, allNodes);
+
+        allNodes.add(checkNode);
+
+        if (checkNode.RightChild != null)
+            inOrderDeep(checkNode.RightChild, allNodes);
+
+        return allNodes;
+    }
+
+    private ArrayList<BSTNode> postOrderDeep(BSTNode checkNode, ArrayList<BSTNode> allNodes) {
+        if (checkNode.LeftChild != null)
+            postOrderDeep(checkNode.LeftChild, allNodes);
+
+        if (checkNode.RightChild != null)
+            postOrderDeep(checkNode.RightChild, allNodes);
+
+        allNodes.add(checkNode);
+        return allNodes;
+    }
+
+    private ArrayList<BSTNode> preOrderDeep(BSTNode checkNode, ArrayList<BSTNode> allNodes) {
+        allNodes.add(checkNode);
+        if (checkNode.LeftChild != null)
+            preOrderDeep(checkNode.LeftChild, allNodes);
+
+        if (checkNode.RightChild != null)
+            preOrderDeep(checkNode.RightChild, allNodes);
+
+        return allNodes;
+    }
 }
