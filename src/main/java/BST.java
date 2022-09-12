@@ -259,7 +259,6 @@ class BST<T> {
         return allNodes;
     }
 
-    //    0 (in-order), 1 (post-order) и 2 (pre-order)
     public ArrayList<BSTNode> DeepAllNodes(int i) {
         ArrayList<BSTNode> allNodes = new ArrayList<>();
         if (Root == null)
