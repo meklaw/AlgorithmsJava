@@ -1,6 +1,8 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class BSTTest {
@@ -332,5 +334,19 @@ class BSTTest {
             stringBST.AddKeyValue(i, "");
         }
         assertEquals(stringBST.Count(), 3);
+    }
+
+    @Test
+    void WideAllNodes() {
+        BST<String> bst = new BST<>(null);
+        int[] init = new int[]{8, 4, 12, 2, 6, 10, 14, 1, 3, 5, 7, 9, 11, 13, 15};
+        for (int i : init) {
+            bst.AddKeyValue(i, "");
+        }
+        ArrayList<BSTNode> bstNodes = bst.WideAllNodes();
+        for (int i = 0; i < init.length; i++) {
+            assertEquals(bstNodes.get(i).NodeKey, init[i]);
+        }
+
     }
 }

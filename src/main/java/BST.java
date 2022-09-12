@@ -1,4 +1,6 @@
 import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Queue;
 
 class BSTNode<T> {
@@ -239,6 +241,23 @@ class BST<T> {
         }
 
         return count; // количество узлов в дереве
+    }
+
+    public ArrayList<BSTNode> WideAllNodes() {
+        ArrayList<BSTNode> allNodes = new ArrayList<>();
+        if (Root == null)
+            return allNodes;
+        ArrayDeque<BSTNode> nodesToCheck = new ArrayDeque<>();
+        nodesToCheck.add(Root);
+        while (!nodesToCheck.isEmpty()) {
+            BSTNode checkNode = nodesToCheck.pollFirst();
+            allNodes.add(checkNode);
+            if (checkNode.LeftChild != null)
+                nodesToCheck.add(checkNode.LeftChild);
+            if (checkNode.RightChild != null)
+                nodesToCheck.add(checkNode.RightChild);
+        }
+        return allNodes;
     }
 
 }
