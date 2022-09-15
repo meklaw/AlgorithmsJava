@@ -9,14 +9,18 @@ class aBSTTest {
 
     @Test
     void construct() {
-        aBST aBST = new aBST(4);
+        aBST aBST = new aBST(3);
         assertEquals(aBST.Tree.length, 15);
-        aBST = new aBST(1);
+
+        aBST = new aBST(0);
         assertEquals(aBST.Tree.length, 1);
-        aBST = new aBST(2);
+
+        aBST = new aBST(1);
         assertEquals(aBST.Tree.length, 3);
-        aBST = new aBST(3);
+
+        aBST = new aBST(2);
         assertEquals(aBST.Tree.length, 7);
+
         for (int i = 0; i < aBST.Tree.length; i++) {
             assertNull(aBST.Tree[i]);
         }
@@ -24,7 +28,7 @@ class aBSTTest {
 
     @Test
     void findKeyIndex() {
-        aBST aBST = new aBST(4);
+        aBST aBST = new aBST(3);
         assertEquals(aBST.FindKeyIndex(50), 0);
         aBST.Tree[0] = 50;
         assertEquals(aBST.FindKeyIndex(25), -1);
@@ -70,7 +74,7 @@ class aBSTTest {
 
     @Test
     void addKey() {
-        aBST aBST = new aBST(4);
+        aBST aBST = new aBST(3);
         aBST.AddKey(50);
         assertEquals(aBST.FindKeyIndex(50), 0);
         assertEquals(aBST.AddKey(50), 0);
