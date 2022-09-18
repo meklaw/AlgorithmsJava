@@ -27,6 +27,7 @@ class AlgorithmsDataStructures2Test {
         assertEquals(generateBBSTArray1[4], 37);
         assertEquals(generateBBSTArray1[5], 62);
         assertEquals(generateBBSTArray1[6], 84);
+
         assertEquals(generateBBSTArray3[0], 50);
         assertEquals(generateBBSTArray3[1], 20);
         assertEquals(generateBBSTArray3[2], 75);
