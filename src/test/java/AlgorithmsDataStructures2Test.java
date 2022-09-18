@@ -27,8 +27,6 @@ class AlgorithmsDataStructures2Test {
         assertEquals(generateBBSTArray1[4], 37);
         assertEquals(generateBBSTArray1[5], 62);
         assertEquals(generateBBSTArray1[6], 84);
-
-        System.out.println(Arrays.toString(generateBBSTArray3));
         assertEquals(generateBBSTArray3[0], 50);
         assertEquals(generateBBSTArray3[1], 20);
         assertEquals(generateBBSTArray3[2], 75);
