@@ -110,10 +110,10 @@ class BalancedBSTTest {
         assertTrue(bst.IsBalanced(bst.Root));
 
         bst.GenerateTree(arr2);
-        bst.Root.LeftChild.LeftChild = new BSTNode(10, bst.Root.LeftChild);
+        bst.Root.LeftChild.LeftChild = new BSTNode(10, "", bst.Root.LeftChild);
         bst.Root.LeftChild.LeftChild.Level = 2;
         assertFalse(bst.IsBalanced(bst.Root));
-        bst.Root.LeftChild.LeftChild.LeftChild = new BSTNode(5, bst.Root.LeftChild.LeftChild);
+        bst.Root.LeftChild.LeftChild.LeftChild = new BSTNode(5, "", bst.Root.LeftChild.LeftChild);
         bst.Root.LeftChild.LeftChild.LeftChild.Level = 3;
         assertFalse(bst.IsBalanced(bst.Root.LeftChild));
     }

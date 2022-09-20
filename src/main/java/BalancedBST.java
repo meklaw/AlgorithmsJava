@@ -1,19 +1,5 @@
 import java.util.Arrays;
 
-class BSTNode {
-    public int NodeKey; // ключ узла
-    public BSTNode Parent; // родитель или null для корня
-    public BSTNode LeftChild; // левый потомок
-    public BSTNode RightChild; // правый потомок	
-    public int Level; // глубина узла
-
-    public BSTNode(int key, BSTNode parent) {
-        NodeKey = key;
-        Parent = parent;
-        LeftChild = null;
-        RightChild = null;
-    }
-}
 
 class BalancedBST {
     public BSTNode Root; // корень дерева
@@ -25,7 +11,7 @@ class BalancedBST {
     public void GenerateTree(int[] a) {
         Arrays.sort(a);
         int mid = a.length / 2;
-        Root = new BSTNode(a[mid], null);
+        Root = new BSTNode(a[mid], null, null);
         Root.Level = 0;
         if (0 <= mid - 1)
             fromArrToBST(Root, a, 0, mid - 1);
@@ -35,7 +21,7 @@ class BalancedBST {
 
     private void fromArrToBST(BSTNode parent, int[] a, int start, int end) {
         int mid = (start + end) / 2;
-        BSTNode newNode = new BSTNode(a[mid], parent);
+        BSTNode newNode = new BSTNode(a[mid], null, parent);
         newNode.Level = parent.Level + 1;
         if (newNode.NodeKey < parent.NodeKey)
             parent.LeftChild = newNode;
