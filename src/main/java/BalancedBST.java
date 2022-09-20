@@ -58,10 +58,7 @@ class BalancedBST {
         int rightLevel = maxLevel(root_node.RightChild);
         int leftLevel = maxLevel(root_node.LeftChild);
 
-        if (Math.abs(leftLevel - rightLevel) - root_node.Level > 1)
-            return false;
-
-        return true; // сбалансировано ли дерево с корнем root_node
+        return Math.abs(leftLevel - rightLevel) - root_node.Level <= 1;// сбалансировано ли дерево с корнем root_node
     }
 
     private int maxLevel(BSTNode root_node) {
