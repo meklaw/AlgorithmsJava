@@ -1,4 +1,7 @@
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Queue;
 
 class SimpleTreeNode<T> {
     public T NodeValue; // значение в узле
@@ -40,13 +43,11 @@ class SimpleTree<T> {
             return allNodes;
         Queue<SimpleTreeNode<T>> nodesToCheck = new ArrayDeque<>();
         allNodes.add(Root);
-        SimpleTreeNode<T> nodeCheck = Root;
-        while (nodeCheck != null) {
+        for (SimpleTreeNode<T> nodeCheck = Root; nodeCheck != null ; nodeCheck = nodesToCheck.poll()) {
             if (nodeCheck.Children != null) {
                 allNodes.addAll(nodeCheck.Children);
                 nodesToCheck.addAll(nodeCheck.Children);
             }
-            nodeCheck = nodesToCheck.poll();
         }
         return allNodes;
     }
