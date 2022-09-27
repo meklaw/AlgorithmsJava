@@ -21,66 +21,47 @@ class SimpleGraph {
         // ваш код добавления новой вершины
         // с значением value
         // в незанятую позицию vertex
-        int position = -1;
         for (int i = 0; i < vertex.length; i++) {
             if (vertex[i] == null) {
-                position = i;
-                break;
+                vertex[i] = new Vertex(value);
+                return;
             }
         }
-        if (position == -1)
-            return;
-        vertex[position] = new Vertex(value);
     }
 
     // здесь и далее, параметры v -- индекс вершины
     // в списке  vertex
     public void RemoveVertex(int v) {
         // ваш код удаления вершины со всеми её рёбрами
-        int index = indexOf(v);
-        if (index == -1)
+        if (v < 0 || vertex.length <= v)
             return;
         for (int i = 0; i < m_adjacency.length; i++) {
-            m_adjacency[index][i] = 0;
-            m_adjacency[i][index] = 0;
+            m_adjacency[v][i] = 0;
+            m_adjacency[i][v] = 0;
         }
-        vertex[index] = null;
+        vertex[v] = null;
     }
 
     public boolean IsEdge(int v1, int v2) {
         // true если есть ребро между вершинами v1 и v2
-        int firstIndex = indexOf(v1);
-        int secondIndex = indexOf(v2);
-        if (firstIndex == -1 || secondIndex == -1)
+        if (v1 < 0 || vertex.length <= v1 || v2 < 0 || vertex.length <= v2)
             return false;
-        return m_adjacency[firstIndex][secondIndex] == 1;
+        return m_adjacency[v1][v2] == 1;
     }
 
     public void AddEdge(int v1, int v2) {
         // добавление ребра между вершинами v1 и v2
-        int firstIndex = indexOf(v1);
-        int secondIndex = indexOf(v2);
-        if (firstIndex == -1 || secondIndex == -1)
+        if (v1 < 0 || vertex.length <= v1 || v2 < 0 || vertex.length <= v2)
             return;
-        m_adjacency[firstIndex][secondIndex] = 1;
-        m_adjacency[secondIndex][firstIndex] = 1;
+        m_adjacency[v1][v2] = 1;
+        m_adjacency[v2][v1] = 1;
     }
 
     public void RemoveEdge(int v1, int v2) {
         // удаление ребра между вершинами v1 и v2
-        int firstIndex = indexOf(v1);
-        int secondIndex = indexOf(v2);
-        if (firstIndex == -1 || secondIndex == -1)
+        if (v1 < 0 || vertex.length <= v1 || v2 < 0 || vertex.length <= v2)
             return;
-        m_adjacency[firstIndex][secondIndex] = 0;
-        m_adjacency[secondIndex][firstIndex] = 0;
-    }
-
-    public int indexOf(int value) {
-        for (int i = 0; i < vertex.length; i++) {
-            if (vertex[i] != null && vertex[i].Value == value)
-                return i;
-        }
-        return -1;
+        m_adjacency[v1][v2] = 0;
+        m_adjacency[v2][v1] = 0;
     }
 }
