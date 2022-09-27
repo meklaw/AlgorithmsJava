@@ -43,7 +43,7 @@ class SimpleTree<T> {
             return allNodes;
         Queue<SimpleTreeNode<T>> nodesToCheck = new ArrayDeque<>();
         allNodes.add(Root);
-        for (SimpleTreeNode<T> nodeCheck = Root; nodeCheck != null ; nodeCheck = nodesToCheck.poll()) {
+        for (SimpleTreeNode<T> nodeCheck = Root; nodeCheck != null; nodeCheck = nodesToCheck.poll()) {
             if (nodeCheck.Children != null) {
                 allNodes.addAll(nodeCheck.Children);
                 nodesToCheck.addAll(nodeCheck.Children);
@@ -78,5 +78,29 @@ class SimpleTree<T> {
         return (int) GetAllNodes().stream()
                 .filter(node -> node.Children == null || node.Children.size() == 0)
                 .count();
+    }
+
+    public ArrayList<T> EvenTrees() {
+        ArrayList<T> resultList = new ArrayList<>();
+        Queue<SimpleTreeNode<T>> nodesToCheck = new ArrayDeque<>(Root.Children);
+        for (SimpleTreeNode<T> checkNode = nodesToCheck.poll(); checkNode != null; checkNode = nodesToCheck.poll()) {
+            int countElements = countDFS(checkNode);
+            if (countElements % 2 == 0) {
+                resultList.add(checkNode.Parent.NodeValue);
+                resultList.add(checkNode.NodeValue);
+            }
+            if (checkNode.Children != null)
+                nodesToCheck.addAll(checkNode.Children);
+        }
+        return resultList;
+    }
+
+    public int countDFS(SimpleTreeNode<T> node) {
+        if (node.Children == null || node.Children.size() == 0)
+            return 1;
+        int resultSumNodes = 1;
+        resultSumNodes += node.Children.stream().mapToInt(this::countDFS).sum();
+
+        return resultSumNodes;
     }
 }
