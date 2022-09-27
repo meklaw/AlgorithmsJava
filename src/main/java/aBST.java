@@ -1,5 +1,5 @@
 class aBST {
-    public Integer Tree[]; // массив ключей
+    public Integer[] Tree; // массив ключей
 
     public aBST(int depth) {
         // правильно рассчитайте размер массива для дерева глубины depth:
@@ -10,13 +10,7 @@ class aBST {
 
     public Integer FindKeyIndex(int key) {
         // ищем в массиве индекс ключа
-        int currentNode = 0;
-        int leftNode;
-        int rightNode;
-        while (true) {
-            leftNode = currentNode * 2 + 1;
-            rightNode = currentNode * 2 + 2;
-
+        for (int currentNode = 0, leftNode = 0, rightNode = 0; currentNode < Tree.length; leftNode = currentNode * 2 + 1, rightNode = currentNode * 2 + 2) {
             if (Tree[currentNode] == null)
                 return -currentNode;
 
@@ -35,6 +29,7 @@ class aBST {
 
             return null; // не найден
         }
+        return null;
     }
 
     public int AddKey(int key) {
