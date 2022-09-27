@@ -1,4 +1,4 @@
-import java.util.*;
+import java.util.Arrays;
 
 public class AlgorithmsDataStructures2 {
     public static int[] GenerateBBSTArray(int[] a) {
@@ -27,10 +27,8 @@ public class AlgorithmsDataStructures2 {
 
     protected static int[] generateBinaryArray(int length) {
         int newLength = 1;
-        int pow = 0;
-        while (length >= newLength) {
+        for (int pow = 0; length >= newLength; pow++) {
             newLength = (int) Math.pow(2, pow);
-            pow++;
         }
 
         return new int[newLength - 1];
