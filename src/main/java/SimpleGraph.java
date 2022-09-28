@@ -1,5 +1,10 @@
+import java.util.ArrayList;
+import java.util.Stack;
+import java.util.stream.Collectors;
+
 class Vertex {
     public int Value;
+    public boolean hit = false;
 
     public Vertex(int val) {
         Value = val;
@@ -63,5 +68,52 @@ class SimpleGraph {
             return;
         m_adjacency[v1][v2] = 0;
         m_adjacency[v2][v1] = 0;
+    }
+
+    public ArrayList<Vertex> DepthFirstSearch(int VFrom, int VTo) {
+        // Узлы задаются позициями в списке vertex.
+        // Возвращается список узлов -- путь из VFrom в VTo.
+        // Список пустой, если пути нету.
+        Stack<Integer> route = new Stack<>();
+        clearHits();
+        route.push(VFrom);
+
+        for (int currentVert = VFrom;
+             route.size() != 0 && currentVert != VTo;
+             currentVert = route.peek()) {
+            vertex[currentVert].hit = true;
+            int nextVertex = findNextVertex(currentVert, VTo);
+
+            if (nextVertex == -1 && route.size() == 1) {
+                route.pop();
+                break;
+            }
+
+            if (nextVertex == -1) {
+                route.pop();
+                continue;
+            }
+
+            route.push(nextVertex);
+        }
+
+        return (ArrayList<Vertex>) route.stream().map(index -> vertex[index]).collect(Collectors.toList());
+    }
+
+    private int findNextVertex(int currentVert, int target) {
+        int nextVert = -1;
+        for (int i = 0; i < m_adjacency.length; i++) {
+            if (m_adjacency[currentVert][i] == 1 && i == target)
+                return i;
+            if (m_adjacency[currentVert][i] == 1 && !vertex[i].hit && currentVert != i)
+                nextVert = i;
+        }
+        return nextVert;
+    }
+
+    private void clearHits() {
+        for (Vertex ver : vertex) {
+            ver.hit = false;
+        }
     }
 }

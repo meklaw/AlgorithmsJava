@@ -87,4 +87,30 @@ class SimpleGraphTest {
         assertFalse(graph.IsEdge(1, 0));
         assertTrue(graph.IsEdge(0, 2));
     }
+
+    //    10, 15, 20, 30
+    @Test
+    void DepthFirstSearch() {
+        graph.AddVertex(30);
+        assertEquals(graph.DepthFirstSearch(0, 0).get(0).Value, 10);
+        graph.AddEdge(0, 2);
+        assertEquals(graph.DepthFirstSearch(0, 3).size(), 0);
+        assertEquals(graph.DepthFirstSearch(0, 1).size(), 0);
+        assertEquals(graph.DepthFirstSearch(2, 1).size(), 0);
+        assertEquals(graph.DepthFirstSearch(2, 3).size(), 0);
+
+        assertEquals(graph.DepthFirstSearch(0, 2).get(0).Value, 10);
+        assertEquals(graph.DepthFirstSearch(0, 2).get(1).Value, 20);
+        assertEquals(graph.DepthFirstSearch(2, 0).get(0).Value, 20);
+        assertEquals(graph.DepthFirstSearch(2, 0).get(1).Value, 10);
+        graph.AddEdge(1, 2);
+        assertEquals(graph.DepthFirstSearch(0, 1).get(0).Value, 10);
+        assertEquals(graph.DepthFirstSearch(0, 1).get(1).Value, 20);
+        assertEquals(graph.DepthFirstSearch(0, 1).get(2).Value, 15);
+        graph.AddEdge(1, 3);
+        assertEquals(graph.DepthFirstSearch(0, 3).get(0).Value, 10);
+        assertEquals(graph.DepthFirstSearch(0, 3).get(1).Value, 20);
+        assertEquals(graph.DepthFirstSearch(0, 3).get(2).Value, 15);
+        assertEquals(graph.DepthFirstSearch(0, 3).get(3).Value, 30);
+    }
 }
