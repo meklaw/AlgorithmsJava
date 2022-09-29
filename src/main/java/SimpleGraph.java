@@ -1,10 +1,13 @@
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Stack;
 import java.util.stream.Collectors;
 
 class Vertex {
     public int Value;
     public boolean hit = false;
+    public int from = -1;
 
     public Vertex(int val) {
         Value = val;
@@ -82,7 +85,7 @@ class SimpleGraph {
              route.size() != 0 && currentVert != VTo;
              currentVert = route.peek()) {
             vertex[currentVert].hit = true;
-            int nextVertex = findNextVertex(currentVert, VTo);
+            int nextVertex = findNextVertexDFS(currentVert, VTo);
 
             if (nextVertex == -1 && route.size() == 1) {
                 route.pop();
@@ -100,7 +103,7 @@ class SimpleGraph {
         return (ArrayList<Vertex>) route.stream().map(index -> vertex[index]).collect(Collectors.toList());
     }
 
-    private int findNextVertex(int currentVert, int target) {
+    private int findNextVertexDFS(int currentVert, int target) {
         int nextVert = -1;
         for (int i = 0; i < m_adjacency.length; i++) {
             if (m_adjacency[currentVert][i] == 1 && i == target)
@@ -114,6 +117,51 @@ class SimpleGraph {
     private void clearHits() {
         for (Vertex ver : vertex) {
             ver.hit = false;
+            ver.from = -1;
         }
+    }
+
+    public ArrayList<Vertex> BreadthFirstSearch(int VFrom, int VTo) {
+        // Узлы задаются позициями в списке vertex.
+        // Возвращается список узлов -- путь из VFrom в VTo.
+        // Список пустой, если пути нету.
+        if (VTo < 0 || max_vertex <= VTo || VFrom < 0 || max_vertex <= VFrom)
+            return new ArrayList<>();
+
+        clearHits();
+        ArrayDeque<Integer> deque = new ArrayDeque<>();
+        deque.push(VFrom);
+        for (int currentVert = deque.pop(); deque.size() != 0 || !vertex[VFrom].hit; currentVert = deque.pop()) {
+            if (currentVert == VTo)
+                break;
+            vertex[currentVert].hit = true;
+            addEdgesToDeque(deque, currentVert);
+            if (deque.size() == 0)
+                break;
+        }
+
+        return makeRouteBFS(VFrom, VTo);
+    }
+
+    private void addEdgesToDeque(ArrayDeque<Integer> deque, int currentVert) {
+        for (int i = 0; i < m_adjacency.length; i++) {
+            if (m_adjacency[currentVert][i] == 1 && !vertex[i].hit && currentVert != i) {
+                deque.add(i);
+                vertex[i].from = currentVert;
+            }
+        }
+    }
+
+    private ArrayList<Vertex> makeRouteBFS(int VFrom, int VTo) {
+        ArrayList<Vertex> route = new ArrayList<>();
+        if (vertex[VTo].from == -1)
+            return route;
+        for (int currentVert = VTo; currentVert != -1; currentVert = vertex[currentVert].from) {
+            route.add(vertex[currentVert]);
+            if (currentVert == VFrom)
+                break;
+        }
+        Collections.reverse(route);
+        return route;
     }
 }

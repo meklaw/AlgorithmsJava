@@ -1,6 +1,8 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class SimpleGraphTest {
@@ -112,5 +114,41 @@ class SimpleGraphTest {
         assertEquals(graph.DepthFirstSearch(0, 3).get(1).Value, 20);
         assertEquals(graph.DepthFirstSearch(0, 3).get(2).Value, 15);
         assertEquals(graph.DepthFirstSearch(0, 3).get(3).Value, 30);
+    }
+
+    @Test
+    void BreadthFirstSearch() {
+        SimpleGraph graph = new SimpleGraph(8);
+        ArrayList<Vertex> route;
+        for (int i = 0; i < 8; i++) {
+            graph.AddVertex(i);
+        }
+        route = graph.BreadthFirstSearch(0, 5);
+        assertEquals(route.size(), 0);
+        graph.AddEdge(0, 1);
+        graph.AddEdge(0, 2);
+        graph.AddEdge(1, 3);
+        graph.AddEdge(1, 4);
+        graph.AddEdge(2, 5);
+        graph.AddEdge(2, 6);
+        graph.AddEdge(3, 7);
+        route = graph.BreadthFirstSearch(0, 5);
+        assertEquals(route.get(0).Value, 0);
+        assertEquals(route.get(1).Value, 2);
+        assertEquals(route.get(2).Value, 5);
+
+        route = graph.BreadthFirstSearch(0, 7);
+        assertEquals(route.get(0).Value, 0);
+        assertEquals(route.get(1).Value, 1);
+        assertEquals(route.get(2).Value, 3);
+        assertEquals(route.get(3).Value, 7);
+
+        graph.AddEdge(0, 7);
+        route = graph.BreadthFirstSearch(0, 7);
+        assertEquals(route.get(0).Value, 0);
+        assertEquals(route.get(1).Value, 7);
+
+        route = graph.BreadthFirstSearch(0, 100);
+        assertEquals(route.size(), 0);
     }
 }
