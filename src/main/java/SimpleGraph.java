@@ -145,8 +145,11 @@ class SimpleGraph {
 
     private void addEdgesToDeque(ArrayDeque<Integer> deque, int currentVert) {
         for (int i = 0; i < m_adjacency.length; i++) {
-            if (m_adjacency[currentVert][i] == 1 && !vertex[i].hit && currentVert != i) {
+            boolean isCorrectNextVert = IsEdge(currentVert, i) && !vertex[i].hit && currentVert != i;
+            if (isCorrectNextVert) {
                 deque.add(i);
+            }
+            if (isCorrectNextVert && vertex[i].from == -1) {
                 vertex[i].from = currentVert;
             }
         }
