@@ -2,6 +2,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -171,6 +174,35 @@ class SimpleGraphTest {
         assertEquals(route.get(2).Value, 6);
         assertEquals(route.get(3).Value, 5);
         assertEquals(route.size(), 4);
+    }
+
+    @Test
+    void WeakVertices() {
+        SimpleGraph graph = new SimpleGraph(9);
+        ArrayList<Vertex> triangles;
+        IntStream.range(0, 7).forEach(graph::AddVertex);
+        graph.AddEdge(0, 1);
+        graph.AddEdge(0, 2);
+        graph.AddEdge(1, 2);
+        graph.AddEdge(3, 1);
+        graph.AddEdge(3, 2);
+        graph.AddEdge(2, 5);
+        graph.AddEdge(4, 5);
+        graph.AddEdge(4, 6);
+        graph.AddEdge(5, 6);
+        triangles = graph.WeakVertices();
+        assertEquals(triangles.size(), 0);
+
+        graph.AddVertex(7);
+        graph.AddVertex(8);
+        graph.AddEdge(7, 0);
+        graph.AddEdge(7, 5);
+        graph.AddEdge(8, 6);
+        triangles = graph.WeakVertices();
+        assertEquals(triangles.size(), 2);
+        List<Integer> ints = triangles.stream().map(vertex -> vertex.Value).sorted().collect(Collectors.toList());
+        assertEquals(ints.get(0), 7);
+        assertEquals(ints.get(1), 8);
 
     }
 }

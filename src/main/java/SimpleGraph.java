@@ -8,6 +8,7 @@ class Vertex {
     public int Value;
     public boolean hit = false;
     public int from = -1;
+    public boolean isTriangle = false;
 
     public Vertex(int val) {
         Value = val;
@@ -166,5 +167,52 @@ class SimpleGraph {
         }
         Collections.reverse(route);
         return route;
+    }
+
+    public ArrayList<Vertex> WeakVertices() {
+        // возвращает список узлов вне треугольников
+        cleanTriangles();
+        checkTriangles();
+        return makeNonTriangleList();
+    }
+
+    private void cleanTriangles() {
+        for (int currentVert = 0; currentVert < max_vertex; currentVert++) {
+            if (vertex[currentVert] != null)
+                vertex[currentVert].isTriangle = false;
+        }
+    }
+
+    private void checkTriangles() {
+        for (int i = 0; i < max_vertex; i++) {
+            if (vertex[i] != null && !vertex[i].isTriangle)
+                isTriangle(i);
+        }
+    }
+
+    private void isTriangle(int meinIndex) {
+        ArrayList<Integer> neighbors = new ArrayList<>();
+        for (int i = 0; i < max_vertex; i++) {
+            if (vertex[i] != null && IsEdge(meinIndex, i))
+                neighbors.add(i);
+        }
+        for (int firstNeighbor = 0; firstNeighbor < neighbors.size(); firstNeighbor++) {
+            for (int secondNeighbor = firstNeighbor + 1; secondNeighbor < neighbors.size(); secondNeighbor++) {
+                if (IsEdge(neighbors.get(firstNeighbor), neighbors.get(secondNeighbor))) {
+                    vertex[meinIndex].isTriangle = true;
+                    vertex[firstNeighbor].isTriangle = true;
+                    vertex[secondNeighbor].isTriangle = true;
+                }
+            }
+        }
+    }
+
+    private ArrayList<Vertex> makeNonTriangleList() {
+        ArrayList<Vertex> nonTriangles = new ArrayList<>();
+        for (int currentVert = 0; currentVert < max_vertex; currentVert++) {
+            if (vertex[currentVert] != null && !vertex[currentVert].isTriangle)
+                nonTriangles.add(vertex[currentVert]);
+        }
+        return nonTriangles;
     }
 }
