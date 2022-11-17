@@ -6,6 +6,7 @@ import school.tree.BST;
 import school.tree.BSTNode;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -347,7 +348,7 @@ class BSTTest {
         for (int i : init) {
             bst.AddKeyValue(i, "");
         }
-        ArrayList<BSTNode> bstNodes = bst.WideAllNodes();
+        List<BSTNode<String>> bstNodes = bst.WideAllNodes();
         for (int i = 0; i < init.length; i++) {
             assertEquals(bstNodes.get(i).NodeKey, init[i]);
         }
@@ -360,7 +361,7 @@ class BSTTest {
         for (int i : init) {
             bst.AddKeyValue(i, "");
         }
-        ArrayList<BSTNode> bstNodes = bst.DeepAllNodes(0);
+        List<BSTNode<String>> bstNodes = bst.DeepAllNodes(0);
         for (int i = 1; i <= 15; i++) {
             assertEquals(bstNodes.get(i - 1).NodeKey, i);
         }

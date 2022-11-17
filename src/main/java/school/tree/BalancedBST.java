@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 
 public class BalancedBST {
-    public BSTNode Root; // корень дерева
+    public BSTNode<Integer> Root; // корень дерева
 
     public BalancedBST() {
         Root = null;
@@ -13,7 +13,7 @@ public class BalancedBST {
     public void GenerateTree(int[] a) {
         Arrays.sort(a);
         int mid = a.length / 2;
-        Root = new BSTNode(a[mid], null, null);
+        Root = new BSTNode<>(a[mid], null, null);
         Root.Level = 0;
         if (0 <= mid - 1)
             fromArrToBST(Root, a, 0, mid - 1);
@@ -21,9 +21,9 @@ public class BalancedBST {
             fromArrToBST(Root, a, mid + 1, a.length - 1);
     }
 
-    private void fromArrToBST(BSTNode parent, int[] a, int start, int end) {
+    private void fromArrToBST(BSTNode<Integer> parent, int[] a, int start, int end) {
         int mid = (start + end) / 2;
-        BSTNode newNode = new BSTNode(a[mid], null, parent);
+        BSTNode<Integer> newNode = new BSTNode<>(a[mid], null, parent);
         newNode.Level = parent.Level + 1;
         if (newNode.NodeKey < parent.NodeKey)
             parent.LeftChild = newNode;
@@ -39,7 +39,7 @@ public class BalancedBST {
             fromArrToBST(newNode, a, mid + 1, end);
     }
 
-    public boolean IsBalanced(BSTNode root_node) {
+    public boolean IsBalanced(BSTNode<Integer> root_node) {
         if (root_node.LeftChild == null && root_node.RightChild == null)
             return true;
 
@@ -49,7 +49,7 @@ public class BalancedBST {
         return Math.abs(leftLevel - rightLevel) - root_node.Level <= 1;// сбалансировано ли дерево с корнем root_node
     }
 
-    private int maxLevel(BSTNode root_node) {
+    private int maxLevel(BSTNode<Integer> root_node) {
         if (root_node == null)
             return 0;
         return Math.max(root_node.Level, Math.max(maxLevel(root_node.LeftChild), maxLevel(root_node.RightChild)));

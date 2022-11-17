@@ -2,6 +2,7 @@ package school.tree;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Queue;
 
 
@@ -214,14 +215,14 @@ public class BST<T> {
         return count; // количество узлов в дереве
     }
 
-    public ArrayList<BSTNode> WideAllNodes() {
-        ArrayList<BSTNode> allNodes = new ArrayList<>();
+    public List<BSTNode<T>> WideAllNodes() {
+        List<BSTNode<T>> allNodes = new ArrayList<>();
         if (Root == null)
             return allNodes;
-        ArrayDeque<BSTNode> nodesToCheck = new ArrayDeque<>();
+        ArrayDeque<BSTNode<T>> nodesToCheck = new ArrayDeque<>();
         nodesToCheck.add(Root);
         while (!nodesToCheck.isEmpty()) {
-            BSTNode checkNode = nodesToCheck.pollFirst();
+            BSTNode<T> checkNode = nodesToCheck.pollFirst();
             allNodes.add(checkNode);
             if (checkNode.LeftChild != null)
                 nodesToCheck.add(checkNode.LeftChild);
@@ -231,8 +232,8 @@ public class BST<T> {
         return allNodes;
     }
 
-    public ArrayList<BSTNode> DeepAllNodes(int i) {
-        ArrayList<BSTNode> allNodes = new ArrayList<>();
+    public List<BSTNode<T>> DeepAllNodes(int i) {
+        List<BSTNode<T>> allNodes = new ArrayList<>();
         if (Root == null)
             return allNodes;
         if (i == 0)
@@ -242,7 +243,7 @@ public class BST<T> {
         return preOrderDeep(Root, allNodes);
     }
 
-    private ArrayList<BSTNode> inOrderDeep(BSTNode checkNode, ArrayList<BSTNode> allNodes) {
+    private List<BSTNode<T>> inOrderDeep(BSTNode<T> checkNode, List<BSTNode<T>> allNodes) {
         if (checkNode.LeftChild != null)
             inOrderDeep(checkNode.LeftChild, allNodes);
 
@@ -254,7 +255,7 @@ public class BST<T> {
         return allNodes;
     }
 
-    private ArrayList<BSTNode> postOrderDeep(BSTNode checkNode, ArrayList<BSTNode> allNodes) {
+    private List<BSTNode<T>> postOrderDeep(BSTNode<T> checkNode, List<BSTNode<T>> allNodes) {
         if (checkNode.LeftChild != null)
             postOrderDeep(checkNode.LeftChild, allNodes);
 
@@ -265,7 +266,7 @@ public class BST<T> {
         return allNodes;
     }
 
-    private ArrayList<BSTNode> preOrderDeep(BSTNode checkNode, ArrayList<BSTNode> allNodes) {
+    private List<BSTNode<T>> preOrderDeep(BSTNode<T> checkNode, List<BSTNode<T>> allNodes) {
         allNodes.add(checkNode);
         if (checkNode.LeftChild != null)
             preOrderDeep(checkNode.LeftChild, allNodes);
