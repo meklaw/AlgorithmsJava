@@ -1,5 +1,9 @@
+package school;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import school.tree.BSTNode;
+import school.tree.BalancedBST;
 
 import static org.junit.jupiter.api.Assertions.*;
 

@@ -1,6 +1,7 @@
-import org.junit.jupiter.api.Test;
+package school;
 
-import java.util.Arrays;
+import org.junit.jupiter.api.Test;
+import school.tree.AlgorithmsDataStructures2;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

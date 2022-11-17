@@ -1,3 +1,5 @@
+package school.tree;
+
 import java.util.Arrays;
 
 public class AlgorithmsDataStructures2 {
@@ -25,7 +27,7 @@ public class AlgorithmsDataStructures2 {
 
     }
 
-    protected static int[] generateBinaryArray(int length) {
+    public static int[] generateBinaryArray(int length) {
         int newLength = 1;
         for (int pow = 0; length >= newLength; pow++) {
             newLength = (int) Math.pow(2, pow);

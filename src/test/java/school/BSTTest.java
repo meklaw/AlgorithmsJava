@@ -1,5 +1,9 @@
+package school;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import school.tree.BST;
+import school.tree.BSTNode;
 
 import java.util.ArrayList;
 

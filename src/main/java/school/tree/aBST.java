@@ -1,4 +1,6 @@
-class aBST {
+package school.tree;
+
+public class aBST {
     public Integer[] Tree; // массив ключей
 
     public aBST(int depth) {

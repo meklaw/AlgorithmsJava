@@ -1,4 +1,6 @@
-class Heap {
+package school.heap;
+
+public class Heap {
     public int[] HeapArray; // хранит неотрицательные числа-ключи
     public int size = 0;
 

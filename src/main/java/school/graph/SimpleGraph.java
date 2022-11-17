@@ -1,23 +1,14 @@
+package school.graph;
+
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Stack;
 import java.util.stream.Collectors;
 
-class Vertex {
-    public int Value;
-    public boolean hit = false;
-    public int from = -1;
-    public boolean isTriangle = false;
-
-    public Vertex(int val) {
-        Value = val;
-    }
-}
-
-class SimpleGraph {
-    Vertex[] vertex;
-    int[][] m_adjacency;
+public class SimpleGraph {
+    public Vertex[] vertex;
+    public int[][] m_adjacency;
     int max_vertex;
 
     public SimpleGraph(int size) {

@@ -1,26 +1,13 @@
+package school.tree;
+
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Queue;
 
 
-// промежуточный результат поиска
-class BSTFind<T> {
-    // null если в дереве вообще нету узлов
-    public BSTNode<T> Node;
 
-    // true если узел найден
-    public boolean NodeHasKey;
-
-    // true, если родительскому узлу надо добавить новый левым
-    public boolean ToLeft;
-
-    public BSTFind() {
-        Node = null;
-    }
-}
-
-class BST<T> {
-    BSTNode<T> Root; // корень дерева, или null
+public class BST<T> {
+    public BSTNode<T> Root; // корень дерева, или null
 
     public BST(BSTNode<T> node) {
         Root = node;

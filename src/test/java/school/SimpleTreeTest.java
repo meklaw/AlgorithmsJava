@@ -1,5 +1,9 @@
+package school;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import school.tree.simple.SimpleTree;
+import school.tree.simple.SimpleTreeNode;
 
 import java.util.ArrayList;
 import java.util.List;

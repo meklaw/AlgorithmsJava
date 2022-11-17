@@ -1,5 +1,8 @@
+package school;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import school.heap.Heap;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

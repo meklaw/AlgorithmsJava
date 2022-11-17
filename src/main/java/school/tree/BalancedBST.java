@@ -1,7 +1,9 @@
+package school.tree;
+
 import java.util.Arrays;
 
 
-class BalancedBST {
+public class BalancedBST {
     public BSTNode Root; // корень дерева
 
     public BalancedBST() {

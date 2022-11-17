@@ -1,3 +1,5 @@
+package school.tree;
+
 public class BSTNode<T> {
     public int NodeKey; // ключ узла
     public T NodeValue; // значение в узле
