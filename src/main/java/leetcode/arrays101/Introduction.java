@@ -50,5 +50,8 @@ public class Introduction {
         return answer;
     }
 
+    public static int[] sortedSquares2(int[] nums) {
+        return Arrays.stream(nums).map(i-> (int) Math.pow(i, 2)).sorted().toArray();
+    }
 
 }

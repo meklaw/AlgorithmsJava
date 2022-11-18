@@ -47,4 +47,31 @@ class IntroductionTest {
             assertEquals(test[i], squares[i], Arrays.toString(squares));
         }
     }
+
+    @Test
+    void sortedSquares2() {
+        int[] squares = Introduction.sortedSquares2(new int[]{-4, -1, 0, 3, 10});
+        int[] test = new int[]{0, 1, 9, 16, 100};
+        for (int i = 0; i < squares.length; i++) {
+            assertEquals(test[i], squares[i], Arrays.toString(squares));
+        }
+
+        squares = Introduction.sortedSquares2(new int[]{-7, -3, 2, 3, 11});
+        test = new int[]{4, 9, 9, 49, 121};
+        for (int i = 0; i < squares.length; i++) {
+            assertEquals(test[i], squares[i], Arrays.toString(squares));
+        }
+
+        squares = Introduction.sortedSquares2(new int[]{-5, -3, -2, -1});
+        test = new int[]{1, 4, 9, 25};
+        for (int i = 0; i < squares.length; i++) {
+            assertEquals(test[i], squares[i], Arrays.toString(squares));
+        }
+
+        squares = Introduction.sortedSquares2(new int[]{-5, -3, -2, -1, 4});
+        test = new int[]{1, 4, 9, 16, 25};
+        for (int i = 0; i < squares.length; i++) {
+            assertEquals(test[i], squares[i], Arrays.toString(squares));
+        }
+    }
 }
