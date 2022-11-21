@@ -74,4 +74,75 @@ class IntroductionTest {
             assertEquals(test[i], squares[i], Arrays.toString(squares));
         }
     }
+
+    @Test
+    void duplicateZeros() {
+        int[] input = new int[]{1, 0, 2, 3, 0, 4, 5, 0};
+        int[] test = new int[]{1, 0, 0, 2, 3, 0, 0, 4};
+        Introduction.duplicateZeros(input);
+        for (int i = 0; i < input.length; i++) {
+            assertEquals(test[i], input[i], Arrays.toString(input));
+        }
+
+        input = new int[]{1, 2, 3};
+        test = new int[]{1, 2, 3};
+        Introduction.duplicateZeros(input);
+        for (int i = 0; i < input.length; i++) {
+            assertEquals(test[i], input[i], Arrays.toString(input));
+        }
+    }
+
+    @Test
+    void merge() {
+        int[] nums1 = new int[]{1, 2, 3, 0, 0, 0};
+        int[] nums2 = new int[]{2, 5, 6};
+        int m = 3;
+        int n = 3;
+        Introduction.merge(nums1, m, nums2, n);
+        int[] test = new int[]{1, 2, 2, 3, 5, 6};
+        for (int i = 0; i < nums1.length; i++) {
+            assertEquals(test[i], nums1[i], Arrays.toString(nums1));
+        }
+
+        nums1 = new int[]{1, 2, 3, 0, 0, 0, 0, 0};
+        nums2 = new int[]{2, 2, 2, 5, 6};
+        m = 3;
+        n = 5;
+        Introduction.merge(nums1, m, nums2, n);
+        test = new int[]{1, 2, 2, 2, 2, 3, 5, 6};
+        for (int i = 0; i < nums1.length; i++) {
+            assertEquals(test[i], nums1[i], Arrays.toString(nums1));
+        }
+
+        nums1 = new int[]{1};
+        nums2 = new int[]{};
+        m = 1;
+        n = 0;
+        Introduction.merge(nums1, m, nums2, n);
+        test = new int[]{1};
+        for (int i = 0; i < nums1.length; i++) {
+            assertEquals(test[i], nums1[i], Arrays.toString(nums1));
+        }
+
+        nums1 = new int[]{0};
+        nums2 = new int[]{1};
+        m = 0;
+        n = 1;
+        Introduction.merge(nums1, m, nums2, n);
+        test = new int[]{1};
+        for (int i = 0; i < nums1.length; i++) {
+            assertEquals(test[i], nums1[i], Arrays.toString(nums1));
+        }
+        nums1 = new int[]{10, 20, 30, 0, 0, 0};
+        nums2 = new int[]{12, 14, 16};
+        m = 3;
+        n = 3;
+        Introduction.merge(nums1, m, nums2, n);
+        test = new int[]{10, 12, 14, 16, 20, 30};
+        for (int i = 0; i < nums1.length; i++) {
+            assertEquals(test[i], nums1[i], Arrays.toString(nums1));
+        }
+
+
+    }
 }
